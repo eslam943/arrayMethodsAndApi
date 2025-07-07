@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select name="sl" id="sl">
+        <option value="comments">see comments</option>
+        <option value="posts">see posts</option>
+        <option value="users">see users</option>
+        <option value="photos">see photos</option>
+    </select>
+    <select name="sn" id="sn">
+        
+    </select>
+   
+    <button onclick="show()">show</button>
+    <h1 id ="data2"></h1>
+    <p id="data3"></p>
+    <script>
+     let father=   document.getElementById("sn");
+     for(let i=1;i<100;i++){
+        let son=document.createElement("option");
+         son.value=i;
+         son.innerHTML=`id = ${i}`;
+         father.appendChild(son);
+     }
+
+     function show(){
+        fetch(`https://jsonplaceholder.typicode.com/${document.getElementById("sl").value}`)
+        .then(res=>res.json())
+         .then(data=>data.find(item=>item.id==document.getElementById("sn").value))
+         .then(data=>{data=Object.values(data);
+            document.getElementById("data2").innerText=`${data[2]}`;
+            document.getElementById("data3").innerText=`${data[3]}`;
+         })
+             
+     }
+
+    </script>
+</body>
+</html>
